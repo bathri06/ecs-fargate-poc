@@ -1,0 +1,70 @@
+# security group for ALB
+module "hub_container_app_alb_security_group" {
+  source                 = "../../modules/module-aws-ecs-security-groups"
+  description            = "Security Group for container App ALB"
+  name                   = "hub_container_app_alb-${var.environment_name}-${var.stack_instance}-sg"
+  revoke_rules_on_delete = true
+  tags                   = module.aws_helper.tags
+  vpc_id                 = module.aws_helper.vpc_id 
+}
+
+module "hub_container_app_alb_security_group_rules_80_trafic_ingress" {
+  source            = "../../modules/module-aws-ecs-security-group-rules"
+  security_group_rule_type = "cidr_blocks"
+  description       = "Security Group Rule for NLB to ALB traffic"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  type              = "ingress"
+  security_group_id = module.hub_container_app_alb_security_group.security_group_id
+  #source_security_group_id = module.aws_helper.vpc_private_subnet_cidr_list
+  cidr_blocks = module.aws_helper.vpc_private_subnet_cidr_list
+}
+
+module "hub_container_app_alb_security_group_rules_443_trafic_ingress" {
+  source            = "../../modules/module-aws-ecs-security-group-rules"
+  security_group_rule_type = "cidr_blocks"
+  description       = "Security Group Rule for NLB to ALB traffic"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  type              = "ingress"
+  security_group_id = module.hub_container_app_alb_security_group.security_group_id
+  #source_security_group_id = module.aws_helper.vpc_private_subnet_cidr_list
+  cidr_blocks = module.aws_helper.vpc_private_subnet_cidr_list
+}
+
+
+module "hub_container_app_alb_security_group_rules_3000_trafic_egress" {
+  source            = "../../modules/module-aws-ecs-security-group-rules"
+  security_group_rule_type = "cidr_blocks"
+  description       = "Security Group Rule for ALB to ECS traffic"
+  from_port         = 3000
+  to_port           = 3000
+  protocol          = "tcp"
+  type              = "egress"
+  security_group_id = module.hub_container_app_alb_security_group.security_group_id
+  cidr_blocks = module.aws_helper.vpc_private_subnet_cidr_list
+}
+module "hub_container_app_alb_security_group_rules_80_trafic_egress" {
+  source            = "../../modules/module-aws-ecs-security-group-rules"
+  security_group_rule_type = "cidr_blocks"
+  description       = "Security Group Rule for ALB to ECS traffic"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  type              = "egress"
+  security_group_id = module.hub_container_app_alb_security_group.security_group_id
+  cidr_blocks = module.aws_helper.vpc_private_subnet_cidr_list
+}
+module "hub_container_app_alb_security_group_rules_443_trafic_egress" {
+  source            = "../../modules/module-aws-ecs-security-group-rules"
+  security_group_rule_type = "cidr_blocks"
+  description       = "Security Group Rule for ALB to ECS traffic"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  type              = "egress"
+  security_group_id = module.hub_container_app_alb_security_group.security_group_id
+  cidr_blocks = module.aws_helper.vpc_private_subnet_cidr_list
+}

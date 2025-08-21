@@ -1,0 +1,3 @@
+locals {
+  ecr_repo_name = "ecr-${var.environment_name}-${var.stack_instance}-${var.repo_name}-repo"
+}

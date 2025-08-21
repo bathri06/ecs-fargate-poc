@@ -1,0 +1,3 @@
+data "aws_ssm_parameter" "listener_arn_arn" {
+  name = "/${module.aws_helper.application_id}/alb/${var.aws_region}/${var.environment_name}/container-apps/${var.listener_name}/listener_arn"
+}

@@ -1,0 +1,13 @@
+---
+- src: https://gitlab.agile.nat.bt.com/APP15421/dcp/terraform/modules/module-aws-helper.git
+  scm: git
+  name: module-aws-helper
+- src: https://gitlab.agile.nat.bt.com/APP15421/dcp/terraform/modules/module-aws-hybrid-helper.git
+  scm: git
+  name: module-aws-hybrid-helper
+- src: https://gitlab.agile.nat.bt.com/APP15421/dcp/terraform/modules/module-aws-service-consumer.git
+  scm: git
+  name: module-aws-service-consumer
+- src: https://gitlab.agile.nat.bt.com/APP15421/dcp/terraform/modules/module-aws-hub-service-provider.git
+  scm: git
+  name: module-aws-hub-service-provider
